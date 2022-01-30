@@ -4,7 +4,7 @@ const root = document.querySelector(".root");
 
 function App(...sections) {
   sections.forEach(el => {
-    root.appendChild(el());
+    root.appendChild(el);
   })
 }
 
@@ -32,4 +32,32 @@ function createHeader() {
   return header;
 }
 
-App(createHeader);
+function createMain(...sections) {
+  const main = document.createElement("main");
+
+  sections.forEach(el => {
+    main.appendChild(el);
+  })
+
+  return main;
+}
+
+function sectionLeft() {
+  const section     = document.createElement("section"),
+        numberInput = document.createElement("input"),
+        checkButton = document.createElement("button");
+
+  section.className     = "left";
+  numberInput.className = "guess";
+  numberInput.type      = "number";
+  checkButton.className = "btn check";
+
+  checkButton.insertAdjacentText("afterbegin", "Check!");
+
+  section.appendChild(numberInput);
+  section.appendChild(checkButton);
+
+  return section;
+}
+
+App(createHeader(), createMain(sectionLeft()));

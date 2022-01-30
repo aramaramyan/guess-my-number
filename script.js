@@ -60,4 +60,26 @@ function sectionLeft() {
   return section;
 }
 
-App(createHeader(), createMain(sectionLeft()));
+function sectionRight() {
+  const section        = document.createElement("section"),
+        message        = document.createElement("p"),
+        labelScore     = document.createElement("p"),
+        labelHighScore = document.createElement("p");
+
+  section.className        = "right";
+  message.className        = "message";
+  labelScore.className     = "label-score";
+  labelHighScore.className = "label-highscore";
+
+  message.insertAdjacentText("afterbegin", "Start guessing...");
+  labelScore.insertAdjacentHTML("afterbegin", "💯 Score: <span class=\"score\">20</span>");
+  labelHighScore.insertAdjacentHTML("afterbegin", "🥇 Highscore: <span class=\"highscore\">0</span>");
+
+  section.appendChild(message);
+  section.appendChild(labelScore);
+  section.appendChild(labelHighScore);
+
+  return section;
+}
+
+App(createHeader(), createMain(sectionLeft(), sectionRight()));

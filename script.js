@@ -2,6 +2,8 @@
 
 const root = document.querySelector(".root");
 
+const secretNumber = Math.trunc(Math.random() * 20) + 1;
+
 function App(...sections) {
   sections.forEach(el => {
     root.appendChild(el);

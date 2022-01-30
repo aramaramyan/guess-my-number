@@ -1,6 +1,8 @@
 "use strict";
 
 const root = document.querySelector(".root");
+let secretNumber = Math.trunc(Math.random() * 20) + 1;
+let score = 20;
 
 function App(...sections) {
   sections.forEach(el => {
@@ -23,6 +25,19 @@ function createHeader() {
   p.className = "between";
   button.className = "btn again";
   numberDiv.className = "number";
+
+  button.addEventListener("click", () => {
+    score = 20;
+    secretNumber = Math.trunc(Math.random() * 20) + 1;
+
+    document.querySelector(".message").textContent = "Start Guessing...";
+    document.querySelector(".score").textContent = String(score);
+    document.querySelector(".number").textContent = "?";
+    document.querySelector(".guess").value = "";
+
+    document.querySelector("body").style.backgroundColor = "#222";
+    document.querySelector(".number").style.width = "15rem";
+  })
 
   header.appendChild(h1);
   header.appendChild(p);
@@ -53,6 +68,44 @@ function sectionLeft() {
   checkButton.className = "btn check";
 
   checkButton.insertAdjacentText("afterbegin", "Check!");
+
+  checkButton.addEventListener("click", () => {
+    const guess = Number(numberInput.value);
+
+    // When there is no input
+    if(!guess) {
+      document.querySelector(".message").textContent = "⛔️ No Number!";
+
+      // When player wins
+    } else if(guess === secretNumber) {
+      document.querySelector(".message").textContent = "🎉 Correct Number!";
+      document.querySelector(".number").textContent = String(secretNumber);
+      document.querySelector("body").style.backgroundColor = "#60b347";
+      document.querySelector(".number").style.width = "30rem";
+
+      // When guess is too high
+    } else if(guess > secretNumber) {
+      if(score > 1) {
+        document.querySelector(".message").textContent = "📈 Too High!";
+        score--;
+        document.querySelector(".score").textContent = String(score);
+      } else {
+        document.querySelector(".message").textContent = " 🥲 You LOST The Game!";
+        document.querySelector(".score").textContent = "0";
+      }
+
+      // When guess is too low
+    } else if(guess < secretNumber) {
+      if(score > 1) {
+        document.querySelector(".message").textContent = "📉 Too Low!";
+        score--;
+        document.querySelector(".score").textContent = String(score);
+      } else {
+        document.querySelector(".message").textContent = " 🥲 You LOST The Game!";
+        document.querySelector(".score").textContent = "0";
+      }
+    }
+  });
 
   section.appendChild(numberInput);
   section.appendChild(checkButton);

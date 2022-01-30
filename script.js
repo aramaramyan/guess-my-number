@@ -32,4 +32,14 @@ function createHeader() {
   return header;
 }
 
+function createMain(...sections) {
+  const main = document.createElement("main");
+
+  sections.forEach(el => {
+    main.appendChild(el());
+  })
+
+  return main;
+}
+
 App(createHeader);
